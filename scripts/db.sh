@@ -3,6 +3,7 @@
 sudo apt update && sudo apt upgrade -y
 
 sudo apt install mysql-server -y
+
 sudo mysql <<EOF
 CREATE DATABASE northwind;
 CREATE USER 'admin'@'%' IDENTIFIED BY 'password';

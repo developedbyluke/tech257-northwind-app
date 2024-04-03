@@ -2,9 +2,7 @@
 
 sudo apt update && sudo apt upgrade -y
 
-if ! dpkg -s mysql-server >/dev/null 2>&1; then
-    sudo apt-get install mysql-server -y
-fi
+sudo apt-get install mysql-server -y
 
 sudo mysql <<EOF
 CREATE DATABASE northwind;

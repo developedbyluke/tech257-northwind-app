@@ -10,7 +10,7 @@ sudo apt install -y python3.9 python3.9-venv python3.9-dev
 sudo apt install -y python3-pip
 
 git clone https://github.com/developedbyluke/tech257-northwind-app.git repo
-cd repo/app
+cd ../app
 
 python3.9 -m venv venv
 source venv/bin/activate

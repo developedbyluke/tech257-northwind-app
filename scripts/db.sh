@@ -3,13 +3,13 @@
 sudo apt update && sudo apt upgrade -y
 
 sudo apt install mysql-server -y
-sudo mysql <<BASH_QUERY
+sudo mysql <<EOF
 CREATE DATABASE northwind;
 CREATE USER 'admin'@'%' IDENTIFIED BY 'password';
 GRANT ALL PRIVILEGES ON northwind.* TO 'admin'@'%';
 FLUSH PRIVILEGES;
 EXIT;
-BASH_QUERY
+EOF
 
 cd ../app
 sudo mysql northwind < northwind_sql.sql

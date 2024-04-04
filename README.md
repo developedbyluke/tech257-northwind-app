@@ -115,7 +115,7 @@ sudo systemctl restart mysql
 4. `Git project` = add your github that will be used HTTPS URL
 5. `Source Code Management` - Add SSH URL of github with its SSH key which needs to match
    - specify the dev branch
-6. `Build` - add the script which tests the code changes:
+6. `Build` = add the script which tests the code changes:
 ```
 # cd into the app folder
 cd app

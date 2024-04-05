@@ -179,3 +179,7 @@ Results:
 ![alt text](img/image.png)
 
 **Now if a code change is made on the dev branch, it will be tested and if successful, merged with the main branch. The new changes will be copied onto the instance and automatically run the app for it to still be running**
+
+Example:
+
+![alt text](img/image2.5.png)

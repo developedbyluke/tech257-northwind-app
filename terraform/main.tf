@@ -1,10 +1,9 @@
 provider "aws" {
-  region = "eu-west-1"
+  region = var.region
 }
 
-resource "aws_security_group" "app_sg" {
-  name        = "app_sg"
-  description = "Allows traffic on port 5000"
+resource "aws_security_group" "app_security_group" {
+  name = var.sg_name
 
   ingress {
     from_port   = 22
@@ -35,9 +34,8 @@ resource "aws_security_group" "app_sg" {
   }
 }
 
-resource "aws_security_group" "db_sg" {
-  name        = "db_sg"
-  description = "Allows traffic on port 3306"
+resource "aws_security_group" "db_security_group" {
+  name = var.db_sg_name
 
   ingress {
     from_port   = 22
@@ -61,30 +59,31 @@ resource "aws_security_group" "db_sg" {
   }
 }
 
-resource "aws_instance" "app_instance" {
-  tags = {
-    Name = "tech257-group-1-app"
-  }
-  ami             = "ami-123456"
-  instance_type   = "t2.micro"
-  key_name        = "tech257"
-  security_groups = ["app_sg"]
-}
-
 resource "aws_instance" "db_instance" {
   tags = {
-    Name = "tech257-group-1-db"
+    Name = var.db_name
   }
-  ami             = "ami-123456"
-  instance_type   = "t2.micro"
-  key_name        = "tech257"
-  security_groups = ["db_sg"]
+  ami                         = var.db_ami_id
+  instance_type               = var.instance_type
+  associate_public_ip_address = true
+  key_name                    = var.key_name
+  vpc_security_group_ids      = [aws_security_group.db_security_group.id]
 }
 
-output "app_public_ip" {
-  value = data.aws_instance.app_instance.public_ip
-}
+resource "aws_instance" "app_instance" {
+  tags = {
+    Name = var.app_name
+  }
+  ami                         = var.ami_id
+  instance_type               = var.instance_type
+  associate_public_ip_address = true
+  key_name                    = var.key_name
+  vpc_security_group_ids      = [aws_security_group.app_security_group.id]
 
-output "db_private_ip" {
-  value = data.aws_instance.db_instance.private_ip
+  user_data = <<-EOF
+              #!/bin/bash
+              export DB_CONNECTION_URI="mysql+pymysql://admin:password@${aws_instance.db_instance.private_ip}:3306/northwind"
+              cd /repo/app
+              waitress-serve --port=5000 northwind_web:app > waitress.log 2>&1 &
+              EOF
 }

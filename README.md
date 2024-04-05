@@ -1,6 +1,19 @@
 # Northwind App Deployment Project
 **Task: Deploy the Northwind App in a 2-tier deployment in the most efficient way possible. The app has a homepage, a page that has all customer data and a page that add new customers to that list. The app runs on Python 3.9 and uses PIP to install dependencies and the database uses MySQL to populate the data. We decided to create automated scripts for both the running of the app and the database alongside a Jenkins setup which would deploy changes using CICD**
 
+## Creating Instances using AWS
+1. Launch Instance on AWS
+2. App Instance Configuration:
+   1. `Name`
+   2. `Image` - Ubuntu 20.04
+   3. `Type` - t2.micro
+   4. `Security Group` - Create a security group and open ports for SSH:22, HTTP:80, TCP:5000(port to run the app)
+3. Database Instance Configuration:
+   1. `Name`
+   2. `Image` - Ubuntu 20.04
+   3. `Type` - t2.micro
+   4. `Security Group` - Create a group and open port for SSH:22, TCP:3000(port that runs the database)
+
 ## Manual Deployment of Database
 Before creating the script, we manually deployed to figure out which steps would be needed:
 1. `sudo apt update && sudo apt upgrade -y` = update and upgrade

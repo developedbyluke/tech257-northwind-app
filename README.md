@@ -132,9 +132,10 @@ python3 -m pip install pytest
 python3 tests/test_northwind_app.py
 ```
 ![alt text](img/image4.png)
-> Note: Ensure to SSH into the Jenkins instance to install Pip.
-> 
-![alt text](img/image6.png)
+
+   - Note: Ensure to SSH into the Jenkins instance to install Pip.
+
+      ![alt text](img/image6.png)
 
 7. *When Job 2 is created, it will be added in 'Post-build Actions: Build other projects'*
 
@@ -182,4 +183,5 @@ Results:
 
 Example:
 
-![alt text](img/image2.5.png)
+![alt text](img/image2.5.png)<br>
+*In this example, the index.html was configured to make changes to the front page.*

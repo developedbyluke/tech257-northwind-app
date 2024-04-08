@@ -37,6 +37,15 @@
             margin: 1em 0;
             text-transform: uppercase;
         }
+
+        .btn {
+            background-color: black;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            text-align: center;
+            text-decoration: none;
+            cursor: pointer;
+        }
     </style>
 </head>
 
@@ -45,8 +54,8 @@
     <h1>Northwind Home Page</h1>
     <span class="change">This change was made with CI/CD using
         Jenkins!</span>
-    <a href="/all_customers">Click here to list all customers</a>
-    <a href="../static/add_customer_form.html">Click here to add a new customer</a>
+    <a href="/all_customers" class="btn">Click here to list all customers</a>
+    <a href="../static/add_customer_form.html" class="btn">Click here to add a new customer</a>
 </body>
 
 </html>

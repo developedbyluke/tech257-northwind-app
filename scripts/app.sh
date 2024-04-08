@@ -18,5 +18,4 @@ pip install Flask==3.0.2 Waitress==3.0.0 Flask-SQLAlchemy==3.1.1 SQLAlchemy==2.0
 
 export DB_CONNECTION_URI="mysql+pymysql://admin:password@172.31.62.79:3306/northwind"
 
-# waitress-serve --port=5000 northwind_web:app
 waitress-serve --port=5000 northwind_web:app > waitress.log 2>&1 &

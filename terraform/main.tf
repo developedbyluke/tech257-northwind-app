@@ -82,6 +82,11 @@ resource "aws_instance" "app_instance" {
 
   user_data = <<-EOF
               #!/bin/bash
+              apt install nginx -y
+              sed -i "s|try_files .*;|proxy_pass http://127.0.0.1:5000;|g" /etc/nginx/sites-available/default
+              systemctl restart nginx
+              systemctl enable nginx
+
               export DB_CONNECTION_URI="mysql+pymysql://admin:password@${aws_instance.db_instance.private_ip}:3306/northwind"
               cd /repo/app
               waitress-serve --port=5000 northwind_web:app > waitress.log 2>&1 &

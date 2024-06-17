@@ -82,7 +82,18 @@ resource "aws_instance" "app_instance" {
 
   user_data = <<-EOF
               #!/bin/bash
-              export DB_CONNECTION_URI="mysql+pymysql://admin:password@${aws_instance.db_instance.private_ip}:3306/northwind"
+              export DB_CONNECTION_URI=mysql+pymysql://admin:password@${aws_instance.db_instance.private_ip}:3306/northwind
+
+              sudo apt update -y
+              sudo apt install nginx -y
+              sudo sed -i "s|try_files .*;|proxy_pass http://127.0.0.1:5000;|g" /etc/nginx/sites-available/default
+              sudo systemctl restart nginx
+              sudo systemctl enable nginx
+
+              echo "export DB_CONNECTION_URI=mysql+pymysql://admin:password@${aws_instance.db_instance.private_ip}:3306/northwind" | sudo tee -a /etc/profile.d/db_connection_uri.sh
+
+              sudo chmod +x /etc/profile.d/db_connection_uri.sh
+
               cd /repo/app
               waitress-serve --port=5000 northwind_web:app > waitress.log 2>&1 &
               EOF
